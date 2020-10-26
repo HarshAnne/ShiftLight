@@ -1,4 +1,4 @@
-#include "stm32f10x.h"
+#include "stm32f1xx.h"
 
 /* Maximum packet size */
 #define MAX_PACKET_SIZE		8

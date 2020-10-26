@@ -3,7 +3,7 @@
  * Author: Harsh Anne
  */ 
 
-#include "stm32f10x.h"
+#include "stm32f1xx.h"
 
 #define __stack_size 0x200
 

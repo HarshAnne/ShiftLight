@@ -87,7 +87,7 @@ CFLAGS += $(FLAGS)
 CFLAGS += -std=gnu99 
 CFLAGS += -D$(MCU) 
 CFLAGS += -O$(OPT) 
-CFLAGS += -DSTM32F10X_MD 
+CFLAGS += -DSTM32F103xB 
 CFLAGS += -mthumb
 #CFLAGS +=  -split_sections 
 

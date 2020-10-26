@@ -89,6 +89,7 @@ CFLAGS += -D$(MCU)
 CFLAGS += -O$(OPT) 
 CFLAGS += -DSTM32F103xB 
 CFLAGS += -mthumb
+CFLAGS += -Wl,-Map=$(MAP) #Pass option to linker, in this case -Map to gen map file
 #CFLAGS +=  -split_sections 
 
 # linker flags

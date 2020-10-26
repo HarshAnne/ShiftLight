@@ -1,0 +1,7 @@
+exec device = STM32F103C8
+speed auto
+r
+h
+loadfile Objects/HarshLoader.bin
+r
+exit

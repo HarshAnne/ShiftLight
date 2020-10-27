@@ -2,7 +2,7 @@
 
 OUTPUT	= HarshLoader
 CPU		= cortex-m3
-MCU		= STM32F103C8T6
+MCU		= STM32F103C8
 OPT		= 2
 LD_CMD	= harshloader.ld
 
@@ -85,7 +85,7 @@ CFLAGS += -fno-exceptions
 CFLAGS += -nostdlib 
 CFLAGS += $(FLAGS) 
 CFLAGS += -std=gnu99 
-CFLAGS += -D$(MCU) 
+#CFLAGS += -D$(MCU) 
 CFLAGS += -O$(OPT) 
 CFLAGS += -DSTM32F103xB 
 CFLAGS += -mthumb
@@ -122,7 +122,7 @@ reflash: cleanall build flash
 
 flash: $(BIN)
 	@echo "	[flash]"
-	JLinkExe -Device "STM32F103C8" -AutoConnect 1 -If SWD \
+	JLinkExe -Device "$(MCU)" -AutoConnect 1 -If SWD \
 	-CommandFile flash.jlink
 
 bin:

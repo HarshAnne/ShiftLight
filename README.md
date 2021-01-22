@@ -1,6 +1,6 @@
 # Shift Light V0.3
 
-## J-Link  
+## J-Link (options 1) 
 This is my preferred method for flashing.  
 You will need to install the latest J-Link software from Segger's website.  
 [(https://www.segger.com/downloads/flasher/)](https://www.segger.com/downloads/flasher/)  

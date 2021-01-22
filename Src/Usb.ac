@@ -1,0 +1,117 @@
+/*
+ * Usb.c
+ * Author: Harsh Anne
+ */
+
+/* == Headers ============================================================= */
+
+#include "Usb.h"
+
+/* == Functions =========================================================== */
+
+void 
+Usb_Init(void)
+{
+    /* Reset RX and TX lengths inside RxTxBuf struct for all endpoints */
+
+
+    /* Set PA12 to general purpose input float */
+
+    /* USB devices start as not configured */
+
+    /* Set USB clock divider to not divided */
+    RCC->CFGR |= RCC_CFGR_USBPRE_Msk;
+
+    /* Enable USB clock */
+    RCC->APB1ENR |= RCC_APB1ENR_USBEN;
+
+    /* Enable USB IRQ */
+    NVIC_EnableIRQ(USB_LP_CAN1_RX0_IRQn);
+
+    /* USB Force Reset */
+
+    /*  1 - FRES = 0
+     *  2 - Wait until RESET flag = 1 (polling)
+     *  3 - clear ISTR register
+     */
+
+    /* CNTR_FRES = 0 */
+
+    /* Wait until RESET flag = 1 (polling) */
+
+    /* Clear pending interrupts */
+
+    /* Set interrupt mask */ 
+    
+}
+
+/* ------------------------------------------------------------------------ */
+
+void 
+Usb_Buffer2PMA(uint8_t endpoint)
+{
+    
+}
+
+/* ------------------------------------------------------------------------ */
+
+void
+Usb_PMA2Buffer(uint8_t endpoint)
+{
+    volatile uint32_t* btable;
+    btable = (((USB->BTABLE) + endpoint * 8) * 2 + USB_PMAADDR;
+    
+}
+
+/* ------------------------------------------------------------------------ */
+
+void
+Usb_Deinit(void)
+{
+
+}
+
+void 
+USB_LP_CAN1_RX0_IRQHandler(void)
+{
+    volatile uint16_t istr = USB->ISTR;
+
+    while(0 != (istr & ISTR_MASK))
+    {
+        /* Handle EP data */
+        if(1 == (istr & USB_ISTR_CTR_Msk))
+        {
+            /* Clear CTR flag */
+            USB->ISTR = ~(USB_ISTR_CTR_Msk);
+            //USB_EPHandler
+        }
+
+        /* Handle Reset */
+        if(1 == (istr & USB_ISTR_RESET_Msk))
+        {
+            /* Clear RESET flag */
+            USB->ISTR = ~(USB_ISTR_RESET_Msk);
+            //Usb_Reset();
+        }
+
+        /* Handle Suspend */
+        if(1 == (istr & USB_ISTR_SUSP_Msk))
+        {
+            /* Clear SUSP flag */
+            USB->ISTR = ~(USB_ISTR_SUSP_Msk);
+
+            /* If device address is assigned, reset it */
+            
+        }
+
+        /* Handle Wakeup */
+        if(1 == (istr & USB_ISTR_WKUP_Msk))
+        {
+            /* Clear WKUP flag */
+            USB->ISTR = ~(USB_ISTR_WKUP_Msk);
+        }
+    }
+
+    /* Default clear all interrupt flags */
+    USB->ISTR = 0;
+}

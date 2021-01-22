@@ -6,6 +6,7 @@
 /* == Headers ============================================================= */
 
 #include "stm32f1xx.h"
+#include "Types.h"
 
 
 /* == Macros ============================================================== */
@@ -13,9 +14,13 @@
 
 /* == Types =============================================================== */
 
+typedef _Bool boolean;
+
 /* == Variables =========================================================== */
 
 static volatile uint32_t Main_SysTickTimeMs;
+static volatile boolean Main_SysTickTimeFlag;
+
 
 /* == Prototypes ========================================================== */
 
@@ -26,7 +31,8 @@ static inline void Main_SysClockInit(void);
 
 /* == Functions =========================================================== */
 
-int main(void)
+int 
+main(void)
 {
     /* disable all interrupts */
     __disable_irq();
@@ -59,8 +65,9 @@ int main(void)
         Main_SysTickHandler();
 
         /* Every 1s toggle LED */
-        if((0U == (Main_SysTickTimeMs % 1000)) && (Main_SysTickTimeMs > 0U))
+        if((0U == (Main_SysTickTimeMs % 1000)) && (Main_SysTickTimeMs > 0U) && (Main_SysTickTimeFlag == TRUE))
         {
+            Main_SysTickTimeFlag = FALSE;
             i = (i == 0) ? 1 : 0;
             if(i == 0)
             {
@@ -129,5 +136,6 @@ Main_SysTickHandler(void)
     {
         SysTick->CTRL |= SysTick_CTRL_COUNTFLAG_Msk;
         Main_SysTickTimeMs++;
+        Main_SysTickTimeFlag = TRUE;
     }
 }

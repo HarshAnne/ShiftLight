@@ -25,12 +25,14 @@ rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
 PRJDIR 	= .
 GCCDIR 	= gcc
 SRCDIR 	= Src
+INCDIR	= Inc
 DEVDIR	= Device
 OBJDIR 	= Objects
 LSTDIR 	= Listings
 
 DIRS	:= $(SRCDIR)
 DIRS	+= $(DEVDIR)
+DIRS	+= $(INCDIR)
 
 ## FILES #####################################################################
 
@@ -66,6 +68,7 @@ ALLDIRS	:= $(sort $(dir $(SRCS)))
 #$(patsubst %suffix,%replacement,$(var))
 #so appending -I$(PRJDIR)/ -I "directory" to everything
 INCS	:= $(patsubst %, -I$(PRJDIR)/ -I "%", $(ALLDIRS))
+INCS	+= -I$(INCDIR)
 
 VPATH := $(ALLDIRS)
 
